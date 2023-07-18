@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Twitter Clone</title>
+    <style>
+        body {
+            background-color: #e6ecf0;
+            font-family: Arial, sans-serif;
+            padding-right: 20px;
+            padding-left: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #1da1f2;
+            border-radius: 5px;
+            padding: 20px;
+        }
+
+        .instructions {
+            flex-basis: 30%;
+            padding-right: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .tweets {
+            flex-basis: 70%;
+        }
+
+        h1 {
+            color: #1da1f2;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .create-tweet-form {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn-create {
+            background-color: #1da1f2;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-create:hover {
+            background-color: #0c8ed9;
+        }
+
+        .tweet {
+            background-color: #ffffff;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .tweet-content {
+            font-size: 16px;
+        }
+
+        .tweet-actions {
+            margin-top: 10px;
+        }
+
+        .tweet-actions button {
+            background-color: #1da1f2;
+            color: #ffffff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        .tweet-actions button:hover {
+            background-color: #0c8ed9;
+        }
+
+        .tweet-replies {
+            margin-top: 10px;
+            padding-left: 20px;
+            border-left: 2px solid #1da1f2;
+        }
+
+        .tweet-replies p {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="instructions">
+            <h1>All Tweets</h1>
+            <form action="{{ url_for('create') }}" class="create-tweet-form">
+                <button type="submit" class="btn-create">Create New Tweet</button>
+            </form>
+        </div>
+        <div class="tweets">
+            {% for tweet in tweets %}
+            <div class="tweet">
+                <p class="tweet-content">{{ tweet.content }}</p>
+                <div class="tweet-actions">
+                    <form action="{{ url_for('edit', tweet_id=tweet.id) }}" style="display: inline;">
+                        <button type="submit">Edit</button>
+                    </form>
+                    <form action="{{ url_for('delete', tweet_id=tweet.id) }}" style="display: inline;">
+                        <button type="submit">Delete</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
